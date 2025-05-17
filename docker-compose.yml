@@ -40,6 +40,34 @@ services:
         condition: service_healthy
     networks:
       - backend
+  
+  flask_app:
+    build:
+      context: ./flask_postgress_app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      FLASK_POSTGRES_APP_PORT: ${FLASK_POSTGRES_APP_PORT}
+      FLASK_ENV: ${FLASK_ENV}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+    develop:
+      watch:
+        - action: sync
+          path: ./flask_postgress_app
+          target: /app
+          ignore:
+            - .venv/
+        - action: rebuild
+          path: ./flask_postgress_app/uv.lock
 
 volumes:
   pg_data:  # Named volume, not anonymous
