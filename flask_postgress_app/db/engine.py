@@ -21,19 +21,19 @@ logger.info("Postgres db: %s", postgres_db)
 # use the above variables to create the connection string
 db_engine = None
 
-# while True:
-#     try:
-#         # Create the database engine
-#         db_url = (
-#             f"postgresql+psycopg2://{postgres_user}:{postgres_password}"
-#             f"@{postgres_host}:5432/{postgres_db}?client_encoding=utf8"
-#         )
-#         logger.info("Database URL: %s", db_url)
-#         db_engine = create_engine(db_url)
-#         # Test the connection
-#         with db_engine.connect() as connection:
-#             logger.info("Successfully connected to the PostgreSQL database.")
-#         break  # Exit the loop if the connection is successful
-#     except Exception as e:
-#         logger.error("Error connecting to PostgreSQL database: %s", e)
-#         break  # Exit the loop if the connection fails
+while True:
+    try:
+        # Create the database engine
+        db_url = (
+            f"postgresql+psycopg2://{postgres_user}:{postgres_password}"
+            f"@{postgres_host}:5432/{postgres_db}?client_encoding=utf8"
+        )
+        logger.info("Database URL: %s", db_url)
+        db_engine = create_engine(db_url)
+        # Test the connection
+        with db_engine.connect() as connection:
+            logger.info("Successfully connected to the PostgreSQL database.")
+        break  # Exit the loop if the connection is successful
+    except Exception as e:
+        logger.error("Error connecting to PostgreSQL database: %s", e)
+        break  # Exit the loop if the connection fails

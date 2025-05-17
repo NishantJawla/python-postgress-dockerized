@@ -31,6 +31,4 @@ ENTRYPOINT []
 EXPOSE 3000
 
 # Set the command to run the application using uvicorn
-# CMD ["gunicorn", "app:app", "--host", "0.0.0.0", "--port", "3000"]
-
-CMD [ "flask", "run", "-p", "3000"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:3000", "--reload"]
