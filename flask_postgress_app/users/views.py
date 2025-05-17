@@ -29,6 +29,13 @@ def create_user(user_count):
     """
     Create a new user and insert into the database.
     """
+    if db_engine is None:
+        logger.error("Database engine is not initialized.")
+        return Response(
+            "Database connection error",
+            status=HTTPStatus.INTERNAL_SERVER_ERROR,
+        )
+
     with db_engine.connect() as connection:
         transaction = connection.begin()  # Start a transaction
         try:
